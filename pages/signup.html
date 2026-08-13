@@ -5,166 +5,520 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Create your ITAMS account" />
     <title>ITAMS - Sign Up</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/signup.css" />
   </head>
+
   <body class="auth-page signup-page">
+
     <div class="auth-bg auth-bg-primary" aria-hidden="true"></div>
+
     <main class="auth-shell">
       <div class="auth-split-container">
-        
-        <section class="auth-card auth-info-card" aria-labelledby="signup-title">
+
+        <!-- LEFT CARD -->
+        <section
+          class="auth-card auth-info-card"
+          aria-labelledby="signup-title"
+        >
           <div class="auth-info-content">
-            <img src="../assets/images/logos/logo10.png" alt="ITAMS logo" class="info-logo" />
-            <p class="eyebrow">Information Technology Services Department</p>
-            <h1 id="signup-title">Track assets. Maintain systems. Manage smarter.</h1>
+
+            <img
+              src="../assets/images/logos/logo10.png"
+              alt="ITAMS logo"
+              class="info-logo"
+            />
+
+            <p class="eyebrow">
+              Information Technology Services Department
+            </p>
+
+            <h1 id="signup-title">
+              Track assets. Maintain systems. Manage smarter.
+            </h1>
+
           </div>
         </section>
 
-        <section class="auth-card auth-form-card" aria-label="Sign up form section">
-          <h1 class="subtitle">Create your ITAMS account</h1>
 
-          <form id="signup-form" class="auth-form" novalidate>
+        <!-- RIGHT CARD -->
+        <section
+          class="auth-card auth-form-card"
+          aria-label="Sign up form section"
+        >
+
+          <h1 class="subtitle">
+            Create your ITAMS account
+          </h1>
+
+          <form
+            id="signup-form"
+            class="auth-form"
+            novalidate
+          >
+
+            <!-- FULL NAME -->
             <div class="field-group">
-              <label for="signup-name">Full Name</label>
-              <input id="signup-name" name="fullName" type="text" autocomplete="name" placeholder="Juan Dela Cruz" required />
-              <p class="error-message" aria-live="polite"></p>
+
+              <label for="signup-name">
+                Full Name
+              </label>
+
+              <input
+                id="signup-name"
+                name="fullName"
+                type="text"
+                autocomplete="name"
+                placeholder="Juan Dela Cruz"
+                required
+              />
+
+              <p
+                class="error-message"
+                aria-live="polite"
+              ></p>
+
             </div>
 
+
+            <!-- EMAIL -->
             <div class="field-group">
-              <label for="signup-email">Email Address</label>
-              <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="juan.delacruz.swu@phinmaed.com" required />
-              <p class="error-message" aria-live="polite"></p>
+
+              <label for="signup-email">
+                Email Address
+              </label>
+
+              <input
+                id="signup-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="juan.delacruz.swu@phinmaed.com"
+                required
+              />
+
+              <p
+                class="error-message"
+                aria-live="polite"
+              ></p>
+
             </div>
 
+
+            <!-- PASSWORD -->
             <div class="field-group">
-              <label for="signup-password">Password</label>
+
+              <label for="signup-password">
+                Password
+              </label>
+
               <div class="password-wrap">
-                <input id="signup-password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" required />
-                <button type="button" class="toggle-password" data-target="signup-password" aria-label="Show password">Show</button>
+
+                <input
+                  id="signup-password"
+                  name="password"
+                  type="password"
+                  autocomplete="new-password"
+                  placeholder="Create a password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="toggle-password"
+                  data-target="signup-password"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+
               </div>
-              <p class="error-message" aria-live="polite"></p>
+
+              <p
+                class="error-message"
+                aria-live="polite"
+              ></p>
+
             </div>
 
+
+            <!-- CONFIRM PASSWORD -->
             <div class="field-group">
-              <label for="signup-confirm-password">Confirm Password</label>
+
+              <label for="signup-confirm-password">
+                Confirm Password
+              </label>
+
               <div class="password-wrap">
-                <input id="signup-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm your password" required />
-                <button type="button" class="toggle-password" data-target="signup-confirm-password" aria-label="Show password">Show</button>
+
+                <input
+                  id="signup-confirm-password"
+                  name="confirmPassword"
+                  type="password"
+                  autocomplete="new-password"
+                  placeholder="Confirm your password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  class="toggle-password"
+                  data-target="signup-confirm-password"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+
               </div>
-              <p class="error-message" aria-live="polite"></p>
+
+              <p
+                class="error-message"
+                aria-live="polite"
+              ></p>
+
             </div>
 
+
+            <!-- PASSWORD RULES -->
             <div class="password-rules-wrapper">
-              <span class="password-rules-trigger" tabindex="0" aria-label="Password requirements">
+
+              <span
+                class="password-rules-trigger"
+                tabindex="0"
+                aria-label="Password requirements"
+              >
+
                 ?
-                <span class="password-rules-tooltip" aria-live="polite">
+
+                <span
+                  class="password-rules-tooltip"
+                  aria-live="polite"
+                >
+
                   <p>Password must:</p>
+
                   <ul>
                     <li>Be at least 8 characters long</li>
                     <li>Include at least one uppercase letter</li>
                     <li>Include at least one number</li>
                     <li>Include at least one special character</li>
                   </ul>
+
                 </span>
+
               </span>
+
             </div>
 
-            <label class="checkbox-row" for="terms-check">
-              <input id="terms-check" name="terms" type="checkbox" required />
-              <span>I agree to the <a href="#" class="inline-policy-link" data-modal="terms-modal">Terms of Use</a> and <a href="#" class="inline-policy-link" data-modal="privacy-modal">Privacy Policy</a>.</span>
-            </label>
-            <p class="error-message checkbox-error" aria-live="polite"></p>
 
-            <button type="submit" class="primary-button">Create Account</button>
+            <!-- TERMS -->
+            <label
+              class="checkbox-row"
+              for="terms-check"
+            >
+
+              <input
+                id="terms-check"
+                name="terms"
+                type="checkbox"
+                required
+              />
+
+              <span>
+                I agree to the
+                <a
+                  href="#"
+                  class="inline-policy-link"
+                  data-modal="terms-modal"
+                >
+                  Terms of Use
+                </a>
+                and
+                <a
+                  href="#"
+                  class="inline-policy-link"
+                  data-modal="privacy-modal"
+                >
+                  Privacy Policy
+                </a>.
+              </span>
+
+            </label>
+
+            <p
+              class="error-message checkbox-error"
+              aria-live="polite"
+            ></p>
+
+
+            <!-- SUBMIT -->
+            <button
+              type="submit"
+              class="primary-button"
+            >
+              Create Account
+            </button>
+
           </form>
 
+
+          <!-- LOGIN LINK -->
           <p class="auth-switch">
-            Already have an account? <a href="../login.html">Sign in</a>
+            Already have an account?
+            <a href="../login.html">
+              Sign in
+            </a>
           </p>
+
         </section>
 
       </div>
     </main>
 
-    <div class="modal-backdrop hidden" id="terms-modal" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="terms-title" tabindex="-1">
-        <button type="button" class="modal-close" aria-label="Close Terms of Use">×</button>
-        <h2 id="terms-title">Terms of Use</h2>
+
+    <!-- TERMS MODAL -->
+    <div
+      class="modal-backdrop hidden"
+      id="terms-modal"
+      aria-hidden="true"
+    >
+
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="terms-title"
+        tabindex="-1"
+      >
+
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close Terms of Use"
+        >
+          ×
+        </button>
+
+        <h2 id="terms-title">
+          Terms of Use
+        </h2>
+
         <div class="modal-body">
+
           <h3>1. Acceptance of Terms</h3>
-          <p>By accessing and using ITAMS, you agree to comply with these Terms of Use and all applicable policies and regulations.</p>
+
+          <p>
+            By accessing and using ITAMS, you agree to comply with these Terms
+            of Use and all applicable policies and regulations.
+          </p>
+
 
           <h3>2. Authorized Use</h3>
-          <p>ITAMS is intended for authorized personnel of the Information Technology Services Department. Users must use the system only for legitimate activities related to IT asset management and other authorized departmental operations.</p>
+
+          <p>
+            ITAMS is intended for authorized personnel of the Information
+            Technology Services Department. Users must use the system only for
+            legitimate activities related to IT asset management and other
+            authorized departmental operations.
+          </p>
+
 
           <h3>3. User Responsibilities</h3>
+
           <ul>
             <li>Users must keep their account credentials confidential.</li>
             <li>Users must provide accurate information when using the system.</li>
-            <li>Users must not attempt to access information or functions beyond their authorized permissions.</li>
-            <li>Users must not intentionally modify, delete, or misuse system records.</li>
+            <li>
+              Users must not attempt to access information or functions beyond
+              their authorized permissions.
+            </li>
+            <li>
+              Users must not intentionally modify, delete, or misuse system
+              records.
+            </li>
           </ul>
 
+
           <h3>4. Asset Information</h3>
-          <p>Users are responsible for ensuring that asset information they enter or update is accurate and complete.</p>
+
+          <p>
+            Users are responsible for ensuring that asset information they enter
+            or update is accurate and complete.
+          </p>
+
 
           <h3>5. Account Security</h3>
-          <p>Users must immediately report suspected unauthorized access or compromised account credentials to the appropriate ITSD administrator.</p>
+
+          <p>
+            Users must immediately report suspected unauthorized access or
+            compromised account credentials to the appropriate ITSD
+            administrator.
+          </p>
+
 
           <h3>6. System Availability</h3>
-          <p>The system is intended to support ITSD operations. Temporary interruptions may occur because of maintenance, updates, network problems, or other technical issues.</p>
+
+          <p>
+            The system is intended to support ITSD operations. Temporary
+            interruptions may occur because of maintenance, updates, network
+            problems, or other technical issues.
+          </p>
+
 
           <h3>7. Academic Project Notice</h3>
-          <p>ITAMS is developed as an academic project. Its implementation, functionality, and use are subject to the requirements and limitations of the academic project.</p>
+
+          <p>
+            ITAMS is developed as an academic project. Its implementation,
+            functionality, and use are subject to the requirements and
+            limitations of the academic project.
+          </p>
+
 
           <h3>8. Changes to the Terms</h3>
-          <p>The terms may be updated when necessary to reflect changes in the system, project requirements, or applicable policies.</p>
+
+          <p>
+            The terms may be updated when necessary to reflect changes in the
+            system, project requirements, or applicable policies.
+          </p>
+
         </div>
+
       </div>
+
     </div>
 
-    <div class="modal-backdrop hidden" id="privacy-modal" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title" tabindex="-1">
-        <button type="button" class="modal-close" aria-label="Close Privacy Policy">×</button>
-        <h2 id="privacy-title">Privacy Policy</h2>
+
+    <!-- PRIVACY MODAL -->
+    <div
+      class="modal-backdrop hidden"
+      id="privacy-modal"
+      aria-hidden="true"
+    >
+
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="privacy-title"
+        tabindex="-1"
+      >
+
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close Privacy Policy"
+        >
+          ×
+        </button>
+
+        <h2 id="privacy-title">
+          Privacy Policy
+        </h2>
+
         <div class="modal-body">
+
           <h3>1. Information We Collect</h3>
-          <p>ITAMS may collect information necessary for account management and IT asset management operations, including user names, email addresses, account information, asset records, assignment information, maintenance records, repair records, and activity records.</p>
+
+          <p>
+            ITAMS may collect information necessary for account management and
+            IT asset management operations, including user names, email
+            addresses, account information, asset records, assignment
+            information, maintenance records, repair records, and activity
+            records.
+          </p>
+
 
           <h3>2. How Information Is Used</h3>
-          <p>Collected information is used to manage IT assets, track asset assignments, monitor maintenance and repairs, generate reports, support system operations, and improve the system.</p>
+
+          <p>
+            Collected information is used to manage IT assets, track asset
+            assignments, monitor maintenance and repairs, generate reports,
+            support system operations, and improve the system.
+          </p>
+
 
           <h3>3. Access to Information</h3>
-          <p>Access to information is limited according to the user's assigned role and permissions.</p>
+
+          <p>
+            Access to information is limited according to the user's assigned
+            role and permissions.
+          </p>
+
 
           <h3>4. Data Security</h3>
-          <p>Reasonable technical and organizational measures are applied to help protect stored information from unauthorized access, modification, disclosure, or loss.</p>
+
+          <p>
+            Reasonable technical and organizational measures are applied to help
+            protect stored information from unauthorized access, modification,
+            disclosure, or loss.
+          </p>
+
 
           <h3>5. Data Accuracy</h3>
-          <p>Users are expected to provide accurate and updated information when creating or modifying records.</p>
+
+          <p>
+            Users are expected to provide accurate and updated information when
+            creating or modifying records.
+          </p>
+
 
           <h3>6. Data Sharing</h3>
-          <p>Information stored in ITAMS should only be accessible to authorized personnel and should not be disclosed to unauthorized individuals.</p>
+
+          <p>
+            Information stored in ITAMS should only be accessible to authorized
+            personnel and should not be disclosed to unauthorized individuals.
+          </p>
+
 
           <h3>7. Data Retention</h3>
-          <p>Information may be retained for as long as necessary to support ITSD operations, record keeping, reporting, and the academic project requirements.</p>
+
+          <p>
+            Information may be retained for as long as necessary to support
+            ITSD operations, record keeping, reporting, and the academic
+            project requirements.
+          </p>
+
 
           <h3>8. User Rights and Requests</h3>
-          <p>Users may request clarification regarding information associated with their account or records through the appropriate ITSD administrator.</p>
+
+          <p>
+            Users may request clarification regarding information associated
+            with their account or records through the appropriate ITSD
+            administrator.
+          </p>
+
 
           <h3>9. Changes to the Privacy Policy</h3>
-          <p>This Privacy Policy may be updated when necessary to reflect changes in the system or project requirements.</p>
+
+          <p>
+            This Privacy Policy may be updated when necessary to reflect changes
+            in the system or project requirements.
+          </p>
+
         </div>
+
       </div>
+
     </div>
 
+
+    <!-- SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+    <!-- YOUR SUPABASE CLIENT -->
     <script src="../js/config/supabase.js"></script>
-    <script src="../js/config/supabase-test.js"></script>
+
+    <!-- SIGNUP LOGIC -->
     <script src="../js/auth/signup.js"></script>
+
   </body>
 </html>
