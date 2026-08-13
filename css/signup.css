@@ -1,0 +1,504 @@
+:root {
+  --auth-container-width: 860px;
+  --auth-card-padding: 2rem;
+  --auth-left-bg: #f1f3f5;
+  --auth-left-soft: #edf3f5;
+  --auth-right-bg: #ffffff;
+  --auth-border: rgba(15, 1, 1, 0.08);
+  --auth-text: #171b1f;
+}
+
+.auth-page.signup-page,
+.auth-page.login-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255, 209, 206, 0.1), transparent 20%),
+    radial-gradient(circle at 80% 25%, rgba(255, 209, 206, 0.08), transparent 18%),
+    linear-gradient(135deg, #200405 0%, #4d070a 30%, #8f0d12 58%, #2e0607 100%);
+}
+
+.auth-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.auth-bg-primary {
+  background:
+    linear-gradient(140deg, rgba(15, 1, 1, 0.2), transparent 58%),
+    linear-gradient(30deg, rgba(255, 255, 255, 0.03), transparent 40%);
+}
+
+.auth-shell {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--auth-container-width));
+  margin: 0 auto;
+  padding: 28px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-split-container {
+  display: flex;
+  flex-direction: row;
+  width: min(100%, var(--auth-container-width));
+  gap: 0;
+  align-items: stretch;
+  box-shadow: 0 22px 54px rgba(15, 1, 1, 0.24);
+  border-radius: 26px;
+}
+
+.auth-card {
+  padding: var(--auth-card-padding);
+}
+
+.auth-info-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--auth-left-bg), var(--auth-left-soft));
+  border-top-left-radius: 26px;
+  border-bottom-left-radius: 26px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: 1px solid var(--auth-border);
+  border-right: none;
+}
+
+.auth-info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  margin-top: -0.35rem;
+}
+
+.info-logo {
+  height: 96px;
+  width: auto;
+  object-fit: contain;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a1d20;
+  font-weight: 700;
+  white-space: normal;
+}
+
+.auth-info-card h1 {
+  margin: 0;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
+  line-height: 1.25;
+  color: var(--auth-text);
+  white-space: normal;
+}
+
+.auth-form-card {
+  flex: 1.6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-top-right-radius: 26px;
+  border-bottom-right-radius: 26px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: 1px solid var(--auth-border);
+  border-left: none;
+}
+
+.subtitle {
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(15, 1, 1, 0.8);
+  text-align: center;
+  font-weight: 600;
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.field-group {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.field-group label {
+  font-size: 0.89rem;
+  font-weight: 600;
+  color: var(--itams-black);
+}
+
+.field-group input {
+  width: 100%;
+  border: 1px solid rgba(15, 1, 1, 0.15);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--itams-black);
+  padding: 0.82rem 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.field-group input::placeholder {
+  color: rgba(15, 1, 1, 0.4);
+}
+
+.field-group input:focus {
+  outline: none;
+  border-color: var(--itams-red);
+  box-shadow: 0 0 0 4px rgba(158, 10, 14, 0.1);
+}
+
+.field-group input.is-invalid {
+  border-color: var(--itams-red);
+  background: rgba(255, 209, 206, 0.12);
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 4rem;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 0.7rem;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--itams-red);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+}
+
+.toggle-password:hover,
+.toggle-password:focus-visible {
+  color: var(--itams-black);
+  outline: none;
+}
+
+.password-rules-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.1rem;
+}
+
+.password-rules-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(158, 10, 14, 0.18);
+  background: rgba(158, 10, 14, 0.05);
+  color: var(--itams-red);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.password-rules-trigger:hover,
+.password-rules-trigger:focus-visible,
+.password-rules-trigger.is-visible {
+  background: rgba(158, 10, 14, 0.08);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.password-rules-tooltip {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.45rem);
+  width: min(260px, 70vw);
+  background: #ffffff;
+  border: 1px solid rgba(15, 1, 1, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(15, 1, 1, 0.14);
+  padding: 0.7rem 0.8rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  z-index: 5;
+}
+
+.password-rules-trigger:hover .password-rules-tooltip,
+.password-rules-trigger:focus-within .password-rules-tooltip,
+.password-rules-trigger.is-visible .password-rules-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.password-rules-tooltip p {
+  margin: 0 0 0.3rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--itams-black);
+}
+
+.password-rules-tooltip ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: rgba(15, 1, 1, 0.78);
+  font-size: 0.73rem;
+  line-height: 1.6;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-top: 0.1rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: rgba(15, 1, 1, 0.8);
+  cursor: pointer;
+}
+
+.checkbox-row input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--itams-red);
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.inline-policy-link {
+  color: var(--itams-red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.inline-policy-link:hover,
+.inline-policy-link:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+.error-message {
+  min-height: 1em;
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--itams-red);
+}
+
+.checkbox-error {
+  margin-top: -0.2rem;
+}
+
+.primary-button {
+  margin-top: 0.2rem;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: var(--itams-red);
+  color: var(--itams-white);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.primary-button:hover,
+.primary-button:focus-visible {
+  background: #7c090d;
+  box-shadow: 0 10px 20px rgba(158, 10, 14, 0.2);
+  outline: none;
+}
+
+.primary-button:active {
+  transform: translateY(1px);
+}
+
+.auth-switch {
+  margin: 0.8rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(15, 1, 1, 0.75);
+}
+
+.auth-switch a {
+  color: var(--itams-red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-switch a:hover,
+.auth-switch a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 1, 1, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal {
+  position: relative;
+  width: min(100%, 760px);
+  max-height: 82vh;
+  overflow: hidden;
+  background: var(--itams-white);
+  border-radius: 20px;
+  box-shadow: 0 16px 45px rgba(15, 1, 1, 0.25);
+  padding: 2rem 1.4rem 1.2rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 1, 1, 0.05);
+  color: var(--itams-black);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  background: rgba(158, 10, 14, 0.08);
+  outline: none;
+}
+
+.modal h2 {
+  margin: 0 0 1rem;
+  color: var(--itams-black);
+  font-size: clamp(1.6rem, 1.2rem + 1vw, 2rem);
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+}
+
+.modal-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.modal-body h3 {
+  margin: 1.1rem 0 0.45rem;
+  font-size: 1rem;
+  color: var(--itams-black);
+}
+
+.modal-body p,
+.modal-body li {
+  margin: 0;
+  color: rgba(15, 1, 1, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.modal-body ul {
+  padding-left: 1.2rem;
+  margin: 0.35rem 0 0;
+}
+
+@media (max-width: 850px) {
+  .auth-split-container {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  .auth-info-card {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid rgba(15, 1, 1, 0.08);
+    border-bottom: none;
+  }
+
+  .auth-form-card {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: 1px solid rgba(15, 1, 1, 0.08);
+    border-top: none;
+  }
+
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .info-logo {
+    height: 82px;
+  }
+
+  .auth-info-card h1,
+  .eyebrow {
+    white-space: normal;
+  }
+
+  .subtitle {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-shell {
+    padding: 16px 12px;
+  }
+
+  .auth-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .password-rules-tooltip {
+    width: min(220px, 72vw);
+  }
+
+  .modal {
+    padding: 1.4rem 1rem 1rem;
+  }
+}

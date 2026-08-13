@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ITAMS asset details" />
+    <title>ITAMS - Asset Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  </head>
+  <body class="dashboard-page">
+    <div class="dashboard-shell">
+      <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="brand-wrap">
+          <img src="../assets/images/logos/logo10.png" alt="ITAMS logo" class="brand-logo" />
+          <div>
+            <p class="brand-label">ITAMS</p>
+            <small>Asset Portal</small>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <a href="dashboard.html" class="nav-item">Overview</a>
+          <a href="assets.html" class="nav-item active">Assets</a>
+          <a href="#" class="nav-item">Assignments</a>
+          <a href="#" class="nav-item">Maintenance</a>
+          <a href="#" class="nav-item">Repairs</a>
+          <a href="#" class="nav-item">Reports</a>
+          <a href="#" class="nav-item">Users</a>
+          <a href="#" class="nav-item">Settings</a>
+        </nav>
+      </aside>
+
+      <div class="main-panel">
+        <header class="topbar">
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="search" placeholder="Search assets..." />
+          </div>
+
+          <div class="topbar-actions">
+            <button type="button" class="icon-button" aria-label="Notifications">🔔</button>
+            <button type="button" class="icon-button" aria-label="Settings">⚙️</button>
+          </div>
+        </header>
+
+        <main class="content detail-page">
+          <section class="page-header detail-header">
+            <div>
+              <p class="eyebrow">Asset record</p>
+              <h1 id="detail-title">ITAMS Asset</h1>
+            </div>
+            <a href="dashboard.html" class="secondary-button">Back to dashboard</a>
+          </section>
+
+          <div class="detail-summary" id="detail-summary"></div>
+          <p class="detail-status" id="detail-status">Status: N/A</p>
+          <div id="detail-sections" class="detail-sections"></div>
+        </main>
+      </div>
+    </div>
+
+    <script src="../js/assets/asset-details.js"></script>
+  </body>
+</html>

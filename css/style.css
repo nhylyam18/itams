@@ -1,0 +1,46 @@
+:root {
+  --itams-black: #0F0101;
+  --itams-red: #9E0A0E;
+  --itams-pink: #FFD1CE;
+  --itams-white: #FFFFFF;
+  --itams-border: rgba(15, 1, 1, 0.12);
+  --itams-text-soft: rgba(15, 1, 1, 0.72);
+  --itams-error: #9E0A0E;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: var(--itams-white);
+  color: var(--itams-black);
+}
+
+a {
+  color: var(--itams-red);
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+input,
+a {
+  transition: all 0.2s ease;
+}

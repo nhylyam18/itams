@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ITAMS dashboard overview" />
+    <title>ITAMS Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  </head>
+  <body class="dashboard-page">
+    <div class="dashboard-shell">
+      <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="brand-wrap">
+          <img src="../assets/images/logos/logo10.png" alt="ITAMS logo" class="brand-logo" />
+          <div>
+            <p class="brand-label">ITAMS</p>
+            <small>Asset Portal</small>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <div class="nav-section">
+            <p class="nav-section-title">Main</p>
+            <a href="dashboard.html" class="nav-item active">Dashboard</a>
+            <a href="assets.html" class="nav-item">Assets</a>
+            <a href="maintenance.html" class="nav-item">Maintenance</a>
+            <a href="repairs.html" class="nav-item">Repairs</a>
+            <a href="assignments.html" class="nav-item">Borrowing</a>
+            <a href="assignments.html" class="nav-item">Assignments</a>
+            <a href="warranties.html" class="nav-item">Warranties</a>
+          </div>
+          
+          <div class="nav-section">
+            <p class="nav-section-title">Reports</p>
+            <a href="reports.html" class="nav-item">Reports</a>
+          </div>
+          
+          <div class="nav-section">
+            <p class="nav-section-title">Administration</p>
+            <a href="users.html" class="nav-item">Users</a>
+            <a href="#" class="nav-item">Activity Log</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+          </div>
+          
+          <div class="nav-section nav-section-logout">
+            <button id="logout-btn" class="nav-item logout-btn" type="button">
+              <span class="logout-icon">→</span> Logout
+            </button>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button id="sidebar-toggle" class="burger-menu" type="button" aria-label="Toggle sidebar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input type="search" placeholder="Search assets, workers, repairs..." />
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <button type="button" class="icon-button" aria-label="Notifications">🔔</button>
+            <button type="button" class="icon-button" aria-label="Settings">⚙️</button>
+
+            <div class="profile-badge" aria-label="User profile">
+              <span class="avatar">JD</span>
+              <div>
+                <strong>Juan Dela Cruz</strong>
+                <small>IT Supervisor</small>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="page-header">
+            <div>
+              <p class="eyebrow">Operations dashboard</p>
+              <h1>ITAMS Overview</h1>
+            </div>
+            <button type="button" id="open-asset-modal" class="primary-button compact">+ New asset</button>
+          </section>
+
+          <section id="metricsGrid" class="metrics-grid" aria-label="Summary metrics"></section>
+
+          <section class="content-grid">
+            <article class="panel large-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Asset status</p>
+                  <h2>Inventory composition</h2>
+                </div>
+                <button type="button" class="link-button">View all</button>
+              </div>
+              <div id="assetBreakdown" class="status-breakdown"></div>
+            </article>
+
+            <article class="panel small-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Quick actions</p>
+                  <h2>Efficiency tasks</h2>
+                </div>
+              </div>
+              <div id="quickActions" class="quick-actions"></div>
+            </article>
+
+            <article class="panel wide-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Attention needed</p>
+                  <h2>Alerts</h2>
+                </div>
+              </div>
+              <ul id="alertList" class="alert-list"></ul>
+            </article>
+
+            <article class="panel wide-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Recent activity</p>
+                  <h2>Latest updates</h2>
+                </div>
+              </div>
+              <ul id="activityList" class="activity-list"></ul>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="asset-modal" class="asset-modal hidden" aria-hidden="true">
+      <div class="asset-modal-backdrop" data-close-asset-modal></div>
+
+      <div class="asset-modal-panel" role="dialog" aria-modal="true" aria-labelledby="asset-modal-title">
+        <div class="asset-modal-header">
+          <div>
+            <p class="panel-label">Inventory</p>
+            <h2 id="asset-modal-title">Add New Asset</h2>
+          </div>
+          <button type="button" class="asset-modal-close" id="close-asset-modal" aria-label="Close form">×</button>
+        </div>
+
+        <form id="asset-form" class="asset-form" novalidate>
+          <section class="asset-form-section" data-section="basic">
+            <h3>Basic Information</h3>
+            <div class="asset-form-grid two-columns">
+              <label class="field-group">
+                <span>Device Name</span>
+                <input type="text" name="deviceName" id="device-name" required />
+              </label>
+              <label class="field-group">
+                <span>School</span>
+                <input type="text" name="school" id="school" value="PHINMA Education" />
+              </label>
+              <label class="field-group">
+                <span>Hardware Type</span>
+                <select name="hardwareType" id="hardware-type" required>
+                  <option value="Laptop">Laptop</option>
+                  <option value="Desktop">Desktop</option>
+                  <option value="Network Device">Network Device</option>
+                  <option value="Server">Server</option>
+                  <option value="Printer">Printer</option>
+                  <option value="Other IT Equipment">Other IT Equipment</option>
+                </select>
+              </label>
+              <label class="field-group">
+                <span>Status</span>
+                <select name="status" id="status" required>
+                  <option value="Available">Available</option>
+                  <option value="Active">Active</option>
+                  <option value="Assigned">Assigned</option>
+                  <option value="Borrowed">Borrowed</option>
+                  <option value="Under Maintenance">Under Maintenance</option>
+                  <option value="Under Repair">Under Repair</option>
+                  <option value="Missing">Missing</option>
+                  <option value="Retired">Retired</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section" data-section="accountability">
+            <h3>Accountability</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Asset Accountable</span>
+                <input type="text" name="assetAccountable" id="asset-accountable" />
+              </label>
+              <label class="field-group">
+                <span>Assigned To</span>
+                <input type="text" name="assignedTo" id="assigned-to" />
+              </label>
+              <label class="field-group">
+                <span>Assigned To Email Address</span>
+                <input type="email" name="assignedToEmail" id="assigned-to-email" placeholder="name@school.edu" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section" data-section="location">
+            <h3>Location</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Building Name</span>
+                <input type="text" name="buildingName" id="building-name" />
+              </label>
+              <label class="field-group">
+                <span>Floor Number</span>
+                <input type="text" name="floorNumber" id="floor-number" />
+              </label>
+              <label class="field-group">
+                <span>Office / Room Number</span>
+                <input type="text" name="officeNumber" id="office-number" />
+              </label>
+              <label class="field-group">
+                <span>Position</span>
+                <input type="text" name="position" id="position" />
+              </label>
+              <label class="field-group">
+                <span>Department</span>
+                <input type="text" name="department" id="department" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section" data-section="hardware">
+            <h3>Hardware Information</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Manufacturer</span>
+                <input type="text" name="manufacturer" id="manufacturer" />
+              </label>
+              <label class="field-group">
+                <span>Model Number</span>
+                <input type="text" name="modelNumber" id="model-number" />
+              </label>
+              <label class="field-group">
+                <span>Serial Number</span>
+                <input type="text" name="serialNumber" id="serial-number" />
+              </label>
+              <label class="field-group">
+                <span>PHINMA Asset Tag #</span>
+                <input type="text" name="phinmaAssetTag" id="phinma-asset-tag" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Usage</span>
+                <input type="text" name="usage" id="usage" placeholder="Primary / Secondary / Shared" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section conditional-section" data-show-for="Laptop,Desktop,Network Device,Server">
+            <h3>Network Information</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>IP Address</span>
+                <input type="text" name="ipAddress" id="ip-address" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>WiFi MAC Address</span>
+                <input type="text" name="wifiMac" id="wifi-mac" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>LAN MAC Address</span>
+                <input type="text" name="lanMac" id="lan-mac" placeholder="N/A" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section" data-section="purchase">
+            <h3>Purchase &amp; Warranty</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Date of Purchase</span>
+                <input type="date" name="purchaseDate" id="purchase-date" />
+              </label>
+              <label class="field-group">
+                <span>Year</span>
+                <input type="number" name="purchaseYear" id="purchase-year" min="2000" max="2100" />
+              </label>
+              <label class="field-group">
+                <span>Hardware Age</span>
+                <input type="text" name="hardwareAge" id="hardware-age" readonly value="N/A" />
+              </label>
+              <label class="field-group">
+                <span>PO #</span>
+                <input type="text" name="poNumber" id="po-number" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Years of Warranty</span>
+                <input type="number" name="warrantyYears" id="warranty-years" min="0" max="20" step="1" placeholder="0" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section conditional-section" data-show-for="Laptop,Desktop,Server,Network Device">
+            <h3>Operating System &amp; Software</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Operating System</span>
+                <input type="text" name="operatingSystem" id="operating-system" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>OS License Type</span>
+                <input type="text" name="osLicenseType" id="os-license-type" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Microsoft Office</span>
+                <input type="text" name="microsoftOffice" id="microsoft-office" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Office License Type</span>
+                <input type="text" name="officeLicenseType" id="office-license-type" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Adobe Software</span>
+                <input type="text" name="adobeSoftware" id="adobe-software" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Adobe License Type</span>
+                <input type="text" name="adobeLicenseType" id="adobe-license-type" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Spiceworks</span>
+                <input type="text" name="spiceworks" id="spiceworks" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Remote Utilities</span>
+                <input type="text" name="remoteUtilities" id="remote-utilities" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Antivirus</span>
+                <input type="text" name="antivirus" id="antivirus" placeholder="N/A" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section conditional-section" data-show-for="Server">
+            <h3>Server / Infrastructure</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Server Status</span>
+                <input type="text" name="serverStatus" id="server-status" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Out-of-Band IP Address</span>
+                <input type="text" name="outOfBandIp" id="out-of-band-ip" placeholder="RSA / iLO / DRAC" />
+              </label>
+              <label class="field-group">
+                <span>Hypervisor Hostname</span>
+                <input type="text" name="hypervisorHostname" id="hypervisor-hostname" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Fully Qualified Domain Name</span>
+                <input type="text" name="fqdn" id="fqdn" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Server Purpose</span>
+                <input type="text" name="serverPurpose" id="server-purpose" placeholder="N/A" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section conditional-section" data-show-for="Laptop,Desktop,Server,Network Device">
+            <h3>Hardware Specifications</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Processor</span>
+                <input type="text" name="processor" id="processor" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Number of Cores per Processor</span>
+                <input type="text" name="numberOfCores" id="number-of-cores" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Memory</span>
+                <input type="text" name="memory" id="memory" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Hard Disk Size</span>
+                <input type="text" name="hardDiskSize" id="hard-disk-size" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>RAID Level</span>
+                <input type="text" name="raidLevel" id="raid-level" placeholder="N/A" />
+              </label>
+            </div>
+          </section>
+
+          <div class="asset-form-actions">
+            <button type="button" class="secondary-button asset-cancel" data-close-asset-modal>Cancel</button>
+            <button type="submit" class="primary-button">Add Asset</button>
+          </div>
+
+          <div id="asset-success" class="asset-success hidden" aria-live="polite">
+            <h3>Asset created successfully</h3>
+            <p id="asset-success-message">Asset Record: <strong id="created-asset-id">ITAMS-000000</strong></p>
+            <div class="asset-success-actions">
+              <a id="view-asset-link" class="primary-button small-button" href="#">View Asset</a>
+              <button type="button" class="secondary-button small-button" id="view-qr-button">View QR Code</button>
+              <button type="button" class="secondary-button small-button" id="print-label-button">Print QR Label</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="js/config/supabase.js"></script>
+    <script src="js/config/supabase-test.js"></script>
+    <script src="../js/assets/add-asset.js"></script>
+    <script src="../js/dashboard/dashboard.js"></script>
+    <script src="../js/components/sidebar.js"></script>
+    <script src="../js/auth/logout.js"></script>
+  </body>
+</html>

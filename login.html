@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Login to the ITAMS asset management portal" />
+    <title>ITAMS - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body class="auth-page login-page">
+    <div class="auth-bg auth-bg-primary" aria-hidden="true"></div>
+    <main class="auth-shell">
+      <div class="auth-split-container">
+        <section class="auth-card auth-info-card" aria-labelledby="login-title">
+          <div class="auth-info-content">
+            <img src="assets/images/logos/logo10.png" alt="ITAMS logo" class="info-logo" />
+            <p class="eyebrow">Information Technology Services Department</p>
+            <h1 id="login-title">Welcome back</h1>
+          </div>
+        </section>
+
+        <section class="auth-card auth-form-card" aria-label="Login form section">
+          <p class="subtitle">Sign in to access the IT asset management system.</p>
+          <p id="supabase-status" aria-live="polite"></p>
+
+          <form id="login-form" class="auth-form" novalidate>
+            <div class="field-group">
+              <label for="login-email">Email Address</label>
+              <input id="login-email" name="email" type="email" autocomplete="email" placeholder="name.swu@phinmaed.com" required />
+              <p class="error-message" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="login-password">Password</label>
+              <div class="password-wrap">
+                <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+                <button type="button" class="toggle-password" data-target="login-password" aria-label="Show password">Show</button>
+              </div>
+              <p class="error-message" aria-live="polite"></p>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-row" for="remember-me">
+                <input id="remember-me" name="remember" type="checkbox" />
+                <span>Remember me</span>
+              </label>
+              <a href="pages/forgot-password.html" class="text-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="primary-button">Sign In</button>
+          </form>
+
+          <p class="auth-switch">
+            Don't have an account? <a href="pages/signup.html">Sign up</a>
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="js/config/supabase.js"></script>
+    <script src="js/config/supabase-test.js"></script>
+    <script src="js/auth/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ITAMS reports" />
+    <title>ITAMS - Reports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  </head>
+  <body class="dashboard-page">
+    <div class="dashboard-shell">
+      <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="brand-wrap">
+          <img src="../assets/images/logos/logo10.png" alt="ITAMS logo" class="brand-logo" />
+          <div>
+            <p class="brand-label">ITAMS</p>
+            <small>Asset Portal</small>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <div class="nav-section">
+            <p class="nav-section-title">Main</p>
+            <a href="dashboard.html" class="nav-item">Dashboard</a>
+            <a href="assets.html" class="nav-item">Assets</a>
+            <a href="maintenance.html" class="nav-item">Maintenance</a>
+            <a href="repairs.html" class="nav-item">Repairs</a>
+            <a href="assignments.html" class="nav-item">Borrowing</a>
+            <a href="assignments.html" class="nav-item">Assignments</a>
+            <a href="warranties.html" class="nav-item">Warranties</a>
+          </div>
+          
+          <div class="nav-section">
+            <p class="nav-section-title">Reports</p>
+            <a href="reports.html" class="nav-item active">Reports</a>
+          </div>
+          
+          <div class="nav-section">
+            <p class="nav-section-title">Administration</p>
+            <a href="users.html" class="nav-item">Users</a>
+            <a href="#" class="nav-item">Activity Log</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+          </div>
+          
+          <div class="nav-section nav-section-logout">
+            <button id="logout-btn" class="nav-item logout-btn" type="button">
+              <span class="logout-icon">→</span> Logout
+            </button>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button id="sidebar-toggle" class="burger-menu" type="button" aria-label="Toggle sidebar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input type="search" placeholder="Search reports..." />
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <button type="button" class="icon-button" aria-label="Notifications">🔔</button>
+            <button type="button" class="icon-button" aria-label="Settings">⚙️</button>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="page-header">
+            <div>
+              <p class="eyebrow">Data & Analytics</p>
+              <h1>Reports</h1>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-label">Module Status</p>
+                <h2>Coming Soon</h2>
+              </div>
+            </div>
+            <div style="padding: 2rem;">
+              <p style="color: var(--dashboard-muted); max-width: 600px;">
+                The Reports module will provide comprehensive analytics and reporting capabilities, 
+                including asset distribution reports, maintenance summaries, and audit logs. 
+                This feature is currently under development.
+              </p>
+              <div style="margin-top: 1.5rem;">
+                <button type="button" class="primary-button compact" disabled>
+                  Generate Report
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="../js/components/sidebar.js"></script>
+    <script src="../js/auth/logout.js"></script>
+  </body>
+</html>
