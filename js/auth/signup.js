@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     status.style.textAlign = 'center';
     status.style.marginTop = '0.5rem';
     status.style.fontWeight = '600';
+    status.style.whiteSpace = 'pre-line';
 
     status.textContent =
       'Creating your account...';
@@ -466,6 +467,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
 
+      console.log('========================================');
+      console.log('ITAMS ACCOUNT CREATION STARTED');
+      console.log('========================================');
+
+      console.log('STEP 1: Checking Supabase client');
+
+      if (typeof supabase === 'undefined') {
+
+        throw new Error(
+          'Supabase client is undefined. Check your supabase.js file and make sure it is loaded before signup.js.'
+        );
+
+      }
+
+      console.log('STEP 2: Supabase client detected');
+      console.log('Supabase client:', supabase);
+
+      console.log('STEP 3: Preparing signup request');
+      console.log('Email:', email);
+      console.log('Full name:', fullName);
+      console.log('Password provided:', password ? 'YES' : 'NO');
+      console.log(
+        'Redirect URL:',
+        'https://itams-eight.vercel.app/login.html'
+      );
+
+      console.log('STEP 4: Calling supabase.auth.signUp()');
+
+
       /*
        * CREATE SUPABASE AUTH USER
        */
@@ -479,20 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
           options: {
 
-            /*
-             * Stored as Auth user metadata.
-             * Your current public.users table does
-             * not have a full_name column yet.
-             */
-
             data: {
               full_name: fullName
             },
-
-            /*
-             * After the user clicks the
-             * verification email, send them here.
-             */
 
             emailRedirectTo:
               'https://itams-eight.vercel.app/login.html'
@@ -502,21 +521,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
+      console.log('STEP 5: Supabase response received');
+      console.log('Response data:', data);
+      console.log('Response error:', error);
+
+
       /*
        * SUPABASE ERROR
        */
 
       if (error) {
 
-        console.error(
-          'Supabase signup error:',
-          error
-        );
+        console.error('========================================');
+        console.error('SUPABASE ACCOUNT CREATION ERROR');
+        console.error('========================================');
+
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        console.error('Error code:', error.code);
+        console.error('Error status:', error.status);
+        console.error('Error details:', error);
 
         status.style.color = '#b00020';
+        status.style.whiteSpace = 'pre-line';
 
         status.textContent =
-          error.message;
+          'ACCOUNT CREATION FAILED\n\n' +
+          'Message: ' +
+          (error.message || 'No error message returned') +
+          '\n\n' +
+          'Code: ' +
+          (error.code || 'N/A') +
+          '\n\n' +
+          'Status: ' +
+          (error.status || 'N/A');
 
         if (submitButton) {
 
@@ -535,17 +573,39 @@ document.addEventListener('DOMContentLoaded', () => {
        * SUCCESS
        */
 
+      console.log('========================================');
+      console.log('ACCOUNT CREATION SUCCESSFUL');
+      console.log('========================================');
+
+      console.log('User object:', data?.user);
+      console.log('User ID:', data?.user?.id);
+      console.log('User email:', data?.user?.email);
       console.log(
-        'Supabase signup successful:',
-        data
+        'Email confirmed at:',
+        data?.user?.email_confirmed_at
       );
+      console.log('Session:', data?.session);
 
 
       status.style.color =
         '#2e7d32';
 
-      status.textContent =
-        'Account created! Please check your institutional email to verify your account.';
+      status.style.whiteSpace =
+        'pre-line';
+
+
+      if (data?.user && !data?.session) {
+
+        status.textContent =
+          'ACCOUNT CREATED SUCCESSFULLY!\n\n' +
+          'Please check your institutional email and click the verification link before signing in.';
+
+      } else {
+
+        status.textContent =
+          'ACCOUNT CREATED SUCCESSFULLY!';
+
+      }
 
 
       /*
@@ -577,16 +637,38 @@ document.addEventListener('DOMContentLoaded', () => {
        * UNEXPECTED ERROR
        */
 
-      console.error(
-        'Unexpected signup error:',
-        error
-      );
+      console.error('========================================');
+      console.error('UNEXPECTED ACCOUNT CREATION ERROR');
+      console.error('========================================');
+
+      console.error('Error object:', error);
+      console.error('Error name:', error?.name);
+      console.error('Error message:', error?.message);
+      console.error('Error code:', error?.code);
+      console.error('Error status:', error?.status);
+      console.error('Error stack:', error?.stack);
+
 
       status.style.color =
         '#b00020';
 
+      status.style.whiteSpace =
+        'pre-line';
+
+
       status.textContent =
-        'Something went wrong. Please try again.';
+        'UNEXPECTED ACCOUNT CREATION ERROR\n\n' +
+        'Name: ' +
+        (error?.name || 'Unknown') +
+        '\n\n' +
+        'Message: ' +
+        (error?.message || String(error)) +
+        '\n\n' +
+        'Code: ' +
+        (error?.code || 'N/A') +
+        '\n\n' +
+        'Status: ' +
+        (error?.status || 'N/A');
 
 
       if (submitButton) {
