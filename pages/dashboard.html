@@ -73,10 +73,10 @@
             <button type="button" class="icon-button" aria-label="Settings">⚙️</button>
 
             <div class="profile-badge" aria-label="User profile">
-              <span class="avatar">JD</span>
+              <span class="avatar" id="user-avatar">U</span>
               <div>
-                <strong>Juan Dela Cruz</strong>
-                <small>IT Supervisor</small>
+                <strong id="user-name">User</strong>
+                <small id="user-role">ITSD Staff</small>
               </div>
             </div>
           </div>
@@ -423,5 +423,37 @@
     <script src="../js/dashboard/dashboard.js"></script>
     <script src="../js/components/sidebar.js"></script>
     <script src="../js/auth/logout.js"></script>
+    <script src="../js/auth/role-utils.js"></script>
+    <script src="../js/auth/user-profile.js"></script>
+    <script>
+      // Redirect to role-specific dashboard
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          const { data: { user } } = await window.supabaseClient.auth.getUser();
+          
+          if (!user) {
+            window.location.href = '../login.html';
+            return;
+          }
+
+          const userRole = user.user_metadata?.role || user.user_metadata?.user_role;
+          
+          if (userRole) {
+            const roleMap = {
+              'specialist': 'specialist/dashboard.html',
+              'staff': 'staff/dashboard.html',
+              'administrator': 'administrator/dashboard.html'
+            };
+            
+            const targetDashboard = roleMap[userRole.toLowerCase()];
+            if (targetDashboard) {
+              window.location.href = targetDashboard;
+            }
+          }
+        } catch (error) {
+          console.error('Role redirect error:', error);
+        }
+      });
+    </script>
   </body>
 </html>

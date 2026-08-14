@@ -7,17 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     email: document.getElementById('signup-email'),
     password: document.getElementById('signup-password'),
     confirmPassword: document.getElementById('signup-confirm-password'),
-    terms: document.getElementById('terms-check')
+    terms: document.getElementById('terms-check'),
+    role: document.querySelector('input[name="role"]:checked')
   };
 
   const checkboxError = document.querySelector('.checkbox-error');
   const passwordRulesTrigger =
     document.querySelector('.password-rules-trigger');
 
-
-  /*
-   * PASSWORD TOGGLE
-   */
 
   function setupPasswordToggle(button) {
 
@@ -45,14 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
+
   document
     .querySelectorAll('.toggle-password')
     .forEach(setupPasswordToggle);
 
-
-  /*
-   * ERROR HANDLING
-   */
 
   function showError(input, message) {
 
@@ -88,10 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /*
-   * VALIDATION
-   */
-
   function isValidEmail(value) {
 
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
@@ -120,10 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /*
-   * PASSWORD RULE INDICATOR
-   */
-
   function syncPasswordRulesState() {
 
     const value = fields.password.value.trim();
@@ -144,10 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-
-  /*
-   * MODALS
-   */
 
   function openModal(modalId) {
 
@@ -259,10 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /*
-   * CLEAR VALIDATION ERRORS
-   */
-
   Object.entries(fields).forEach(([name, field]) => {
 
     if (!field) return;
@@ -288,22 +266,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
 
+  // Role selection event listeners
+  document.querySelectorAll('input[name="role"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const roleError = document.querySelector('.field-group:last-of-type .error-message');
+      if (roleError) {
+        roleError.textContent = '';
+      }
+    });
+  });
 
-  /*
-   * SIGNUP
-   */
 
   form.addEventListener('submit', async (event) => {
 
     event.preventDefault();
 
-
     let isValid = true;
 
-
-    /*
-     * FULL NAME
-     */
 
     const fullName =
       fields.fullName.value.trim();
@@ -319,10 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-
-    /*
-     * EMAIL
-     */
 
     const email =
       fields.email.value.trim().toLowerCase();
@@ -349,10 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /*
-     * PASSWORD
-     */
-
     const password =
       fields.password.value;
 
@@ -369,10 +340,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /*
-     * CONFIRM PASSWORD
-     */
-
     if (
       fields.confirmPassword.value !== password ||
       !fields.confirmPassword.value.trim()
@@ -388,10 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /*
-     * TERMS
-     */
-
     if (!fields.terms.checked) {
 
       if (checkboxError) {
@@ -405,19 +368,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    const selectedRole = document.querySelector('input[name="role"]:checked');
+    if (!selectedRole) {
+      const roleError = document.querySelector('.field-group:last-of-type .error-message');
+      if (roleError) {
+        roleError.textContent = 'Please select an account role.';
+      }
+      isValid = false;
+    }
 
-    /*
-     * STOP IF VALIDATION FAILED
-     */
 
     if (!isValid) {
       return;
     }
 
-
-    /*
-     * REMOVE OLD STATUS
-     */
 
     const existingStatus =
       form.querySelector('.form-status');
@@ -426,10 +390,6 @@ document.addEventListener('DOMContentLoaded', () => {
       existingStatus.remove();
     }
 
-
-    /*
-     * STATUS MESSAGE
-     */
 
     const status =
       document.createElement('p');
@@ -448,10 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
     form.appendChild(status);
 
 
-    /*
-     * DISABLE SUBMIT BUTTON
-     */
-
     const submitButton =
       form.querySelector('button[type="submit"]');
 
@@ -467,41 +423,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
 
-      console.log('========================================');
-      console.log('ITAMS ACCOUNT CREATION STARTED');
-      console.log('========================================');
-
-      console.log('STEP 1: Checking Supabase client');
-
-      if (typeof supabase === 'undefined') {
+      if (
+        !window.supabaseClient ||
+        !window.supabaseClient.auth ||
+        typeof window.supabaseClient.auth.signUp !== 'function'
+      ) {
 
         throw new Error(
-          'Supabase client is undefined. Check your supabase.js file and make sure it is loaded before signup.js.'
+          'Supabase Auth is not available. Please check that supabase.js is loaded correctly.'
         );
 
       }
 
-      console.log('STEP 2: Supabase client detected');
-      console.log('Supabase client:', supabase);
 
-      console.log('STEP 3: Preparing signup request');
-      console.log('Email:', email);
-      console.log('Full name:', fullName);
-      console.log('Password provided:', password ? 'YES' : 'NO');
-      console.log(
-        'Redirect URL:',
-        'https://itams-eight.vercel.app/login.html'
-      );
-
-      console.log('STEP 4: Calling supabase.auth.signUp()');
-
-
-      /*
-       * CREATE SUPABASE AUTH USER
-       */
+      const selectedRole = document.querySelector('input[name="role"]:checked');
+      const userRole = selectedRole ? selectedRole.value : 'specialist';
 
       const { data, error } =
-        await supabase.auth.signUp({
+        await window.supabaseClient.auth.signUp({
 
           email: email,
 
@@ -510,51 +449,26 @@ document.addEventListener('DOMContentLoaded', () => {
           options: {
 
             data: {
-              full_name: fullName
-            },
-
-            emailRedirectTo:
-              'https://itams-eight.vercel.app/login.html'
+              full_name: fullName,
+              role: userRole
+            }
 
           }
 
         });
 
 
-      console.log('STEP 5: Supabase response received');
-      console.log('Response data:', data);
-      console.log('Response error:', error);
-
-
-      /*
-       * SUPABASE ERROR
-       */
-
       if (error) {
 
-        console.error('========================================');
-        console.error('SUPABASE ACCOUNT CREATION ERROR');
-        console.error('========================================');
-
-        console.error('Error name:', error.name);
-        console.error('Error message:', error.message);
-        console.error('Error code:', error.code);
-        console.error('Error status:', error.status);
-        console.error('Error details:', error);
+        console.error(
+          'Supabase signup error:',
+          error
+        );
 
         status.style.color = '#b00020';
-        status.style.whiteSpace = 'pre-line';
 
         status.textContent =
-          'ACCOUNT CREATION FAILED\n\n' +
-          'Message: ' +
-          (error.message || 'No error message returned') +
-          '\n\n' +
-          'Code: ' +
-          (error.code || 'N/A') +
-          '\n\n' +
-          'Status: ' +
-          (error.status || 'N/A');
+          `ACCOUNT CREATION FAILED\n\nMessage: ${error.message || 'Unknown Supabase error'}\nCode: ${error.code || 'N/A'}\nStatus: ${error.status || 'N/A'}`;
 
         if (submitButton) {
 
@@ -569,57 +483,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
 
-      /*
-       * SUCCESS
-       */
-
-      console.log('========================================');
-      console.log('ACCOUNT CREATION SUCCESSFUL');
-      console.log('========================================');
-
-      console.log('User object:', data?.user);
-      console.log('User ID:', data?.user?.id);
-      console.log('User email:', data?.user?.email);
       console.log(
-        'Email confirmed at:',
-        data?.user?.email_confirmed_at
+        'Supabase signup successful:',
+        data
       );
-      console.log('Session:', data?.session);
 
 
       status.style.color =
         '#2e7d32';
 
-      status.style.whiteSpace =
-        'pre-line';
+      status.textContent =
+        'Account created successfully!';
 
-
-      if (data?.user && !data?.session) {
-
-        status.textContent =
-          'ACCOUNT CREATED SUCCESSFULLY!\n\n' +
-          'Please check your institutional email and click the verification link before signing in.';
-
-      } else {
-
-        status.textContent =
-          'ACCOUNT CREATED SUCCESSFULLY!';
-
-      }
-
-
-      /*
-       * RESET FORM
-       */
 
       form.reset();
 
       syncPasswordRulesState();
 
-
-      /*
-       * RE-ENABLE BUTTON
-       */
 
       if (submitButton) {
 
@@ -633,42 +513,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (error) {
 
-      /*
-       * UNEXPECTED ERROR
-       */
+      console.error(
+        'UNEXPECTED ACCOUNT CREATION ERROR:',
+        error
+      );
 
-      console.error('========================================');
-      console.error('UNEXPECTED ACCOUNT CREATION ERROR');
-      console.error('========================================');
+      console.error(
+        'Error name:',
+        error?.name
+      );
 
-      console.error('Error object:', error);
-      console.error('Error name:', error?.name);
-      console.error('Error message:', error?.message);
-      console.error('Error code:', error?.code);
-      console.error('Error status:', error?.status);
-      console.error('Error stack:', error?.stack);
+      console.error(
+        'Error message:',
+        error?.message
+      );
+
+      console.error(
+        'Error code:',
+        error?.code
+      );
+
+      console.error(
+        'Error status:',
+        error?.status
+      );
+
+      console.error(
+        'Error stack:',
+        error?.stack
+      );
 
 
       status.style.color =
         '#b00020';
 
-      status.style.whiteSpace =
-        'pre-line';
-
-
       status.textContent =
-        'UNEXPECTED ACCOUNT CREATION ERROR\n\n' +
-        'Name: ' +
-        (error?.name || 'Unknown') +
-        '\n\n' +
-        'Message: ' +
-        (error?.message || String(error)) +
-        '\n\n' +
-        'Code: ' +
-        (error?.code || 'N/A') +
-        '\n\n' +
-        'Status: ' +
-        (error?.status || 'N/A');
+        `UNEXPECTED ACCOUNT CREATION ERROR\n\nName: ${error?.name || 'N/A'}\nMessage: ${error?.message || String(error)}\nCode: ${error?.code || 'N/A'}\nStatus: ${error?.status || 'N/A'}`;
 
 
       if (submitButton) {
@@ -684,10 +564,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
 
-
-  /*
-   * INITIALIZE PASSWORD RULES
-   */
 
   syncPasswordRulesState();
 

@@ -4,15 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('login-password');
     const rememberMe = document.getElementById('remember-me');
 
-    // Make sure the login form exists.
     if (!form || !emailInput || !passwordInput) {
         console.error('Login form elements not found.');
         return;
     }
-
-    // =========================================================
-    // ERROR HANDLING
-    // =========================================================
 
     function showError(input, message) {
         const errorNode = input
@@ -42,17 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // =========================================================
-    // EMAIL VALIDATION
-    // =========================================================
-
     function isValidEmail(value) {
         return /^[a-zA-Z0-9._%+-]+@phinmaed\.com$/.test(value.trim());
     }
-
-    // =========================================================
-    // PASSWORD SHOW / HIDE
-    // =========================================================
 
     document.querySelectorAll('.toggle-password').forEach((button) => {
         button.addEventListener('click', () => {
@@ -79,10 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // =========================================================
-    // CLEAR ERRORS WHEN USER TYPES
-    // =========================================================
-
     emailInput.addEventListener('input', () => {
         clearError(emailInput);
     });
@@ -91,30 +74,21 @@ document.addEventListener('DOMContentLoaded', () => {
         clearError(passwordInput);
     });
 
-    // =========================================================
-    // FORM SUBMISSION
-    // =========================================================
-
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        // Clear previous errors.
         clearError(emailInput);
         clearError(passwordInput);
 
         let isValid = true;
 
-        const email = emailInput.value.trim();
+        const email = emailInput.value.trim().toLowerCase();
         const password = passwordInput.value;
-
-        // -----------------------------------------------------
-        // CLIENT-SIDE VALIDATION
-        // -----------------------------------------------------
 
         if (!isValidEmail(email)) {
             showError(
                 emailInput,
-                'Please enter a valid email address.'
+                'Please enter a valid institutional email address.'
             );
 
             isValid = false;
@@ -133,10 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // -----------------------------------------------------
-        // CHECK SUPABASE CLIENT
-        // -----------------------------------------------------
-
         if (
             !window.supabaseClient ||
             !window.supabaseClient.auth
@@ -153,10 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // -----------------------------------------------------
-        // SHOW LOADING STATE
-        // -----------------------------------------------------
-
         const submitButton =
             form.querySelector('button[type="submit"]');
 
@@ -171,20 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showFormStatus('Signing in...');
 
         try {
-
-            // -------------------------------------------------
-            // SUPABASE LOGIN
-            // -------------------------------------------------
-
             const { data, error } =
                 await window.supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
-
-            // -------------------------------------------------
-            // HANDLE LOGIN ERROR
-            // -------------------------------------------------
 
             if (error) {
                 console.error(
@@ -206,10 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // -------------------------------------------------
-            // LOGIN SUCCESSFUL
-            // -------------------------------------------------
-
             console.log(
                 'Login successful:',
                 data.user
@@ -219,15 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Login successful. Redirecting...'
             );
 
-            // -------------------------------------------------
-            // REMEMBER ME
-            // -------------------------------------------------
-
-            // Supabase normally keeps the authentication session
-            // in browser storage automatically.
-            //
-            // The checkbox is currently used to determine whether
-            // the user's email should be remembered locally.
             if (rememberMe?.checked) {
                 localStorage.setItem(
                     'itams_remembered_email',
@@ -239,23 +183,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             }
 
-            // -------------------------------------------------
-            // REDIRECT TO HOME
-            // -------------------------------------------------
+            setTimeout(async () => {
+                try {
+                    // Get user role from metadata
+                    const userRole = data.user?.user_metadata?.role || data.user?.user_metadata?.user_role;
+                    
+                    if (!userRole) {
+                        showFormStatus(
+                            'Your account role could not be determined. Please contact the ITSD Administrator.',
+                            true
+                        );
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
+                        }
+                        return;
+                    }
 
-            setTimeout(() => {
-                window.location.href = 'home.html';
+                    // Redirect to role-specific dashboard
+                    const roleMap = {
+                        'specialist': 'pages/specialist/dashboard.html',
+                        'staff': 'pages/staff/dashboard.html',
+                        'administrator': 'pages/administrator/dashboard.html'
+                    };
+
+                    const dashboardUrl = roleMap[userRole.toLowerCase()] || 'pages/dashboard.html';
+                    window.location.href = dashboardUrl;
+                } catch (error) {
+                    console.error('Role redirection error:', error);
+                    showFormStatus(
+                        'Error during redirect. Please try again.',
+                        true
+                    );
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                }
             }, 500);
 
         } catch (error) {
-
             console.error(
                 'Unexpected login error:',
                 error
             );
 
             showFormStatus(
-                'Something went wrong. Please try again.',
+                `Login failed: ${error?.message || String(error)}`,
                 true
             );
 
@@ -267,12 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // =========================================================
-    // FORM STATUS MESSAGE
-    // =========================================================
-
     function showFormStatus(message, isError = false) {
-
         const existingStatus =
             form.querySelector('.form-status');
 
@@ -296,12 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.appendChild(status);
     }
 
-    // =========================================================
-    // SUPABASE ERROR MESSAGES
-    // =========================================================
-
     function getLoginErrorMessage(error) {
-
         const message =
             (error?.message || '').toLowerCase();
 
@@ -309,12 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
             message.includes('invalid login credentials')
         ) {
             return 'Incorrect email or password.';
-        }
-
-        if (
-            message.includes('email not confirmed')
-        ) {
-            return 'Please confirm your email address before signing in.';
         }
 
         if (
@@ -328,10 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'Unable to sign in. Please check your credentials and try again.'
         );
     }
-
-    // =========================================================
-    // REMEMBERED EMAIL
-    // =========================================================
 
     const rememberedEmail =
         localStorage.getItem(

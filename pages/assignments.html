@@ -71,6 +71,14 @@
           <div class="topbar-actions">
             <button type="button" class="icon-button" aria-label="Notifications">🔔</button>
             <button type="button" class="icon-button" aria-label="Settings">⚙️</button>
+
+            <div class="profile-badge" aria-label="User profile">
+              <span class="avatar" id="user-avatar">U</span>
+              <div>
+                <strong id="user-name">User</strong>
+                <small id="user-role">ITSD Staff</small>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -108,5 +116,7 @@
 
     <script src="../js/components/sidebar.js"></script>
     <script src="../js/auth/logout.js"></script>
+    <script src="../js/auth/role-utils.js"></script>
+    <script src="../js/auth/user-profile.js"></script>
   </body>
 </html>

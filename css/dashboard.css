@@ -25,21 +25,28 @@ body.dashboard-page {
   color: var(--dashboard-text);
 }
 
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #F9F3F7;
+}
+
 button,
 input {
   font: inherit;
 }
 
 .dashboard-shell {
-  width: min(1400px, calc(100% - 42px));
-  min-height: calc(100vh - 40px);
-  margin: 20px auto;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
-  background: var(--dashboard-bg);
+  background: transparent;
   border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 24px 54px rgba(15, 1, 1, 0.25);
+  box-shadow: none;
 }
 
 .sidebar {
@@ -145,12 +152,6 @@ input {
   background: #FFD1CE;
   color: #9E0A0E;
   outline: none;
-}
-
-.main-panel {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
 }
 
 .topbar {

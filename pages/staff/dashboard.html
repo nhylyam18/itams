@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ITAMS Staff Dashboard" />
+    <title>ITAMS - Staff Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/role-themes.css" />
+  </head>
+  <body class="dashboard-page staff-theme">
+    <div class="dashboard-shell">
+      <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="brand-wrap">
+          <img src="../../assets/images/logos/logo10.png" alt="ITAMS logo" class="brand-logo" />
+          <div>
+            <p class="brand-label">ITAMS</p>
+            <small>Staff Portal</small>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <div class="nav-section">
+            <p class="nav-section-title">Main</p>
+            <a href="dashboard.html" class="nav-item active">Dashboard</a>
+            <a href="../assets.html" class="nav-item">Assets</a>
+            <a href="../assignments.html" class="nav-item">Borrowing</a>
+            <a href="../assignments.html" class="nav-item">Assignments</a>
+            <a href="../repairs.html" class="nav-item">Repairs</a>
+          </div>
+          
+          <div class="nav-section">
+            <p class="nav-section-title">Reports</p>
+            <a href="../reports.html" class="nav-item">Reports</a>
+          </div>
+          
+          <div class="nav-section nav-section-logout">
+            <button id="logout-btn" class="nav-item logout-btn" type="button">
+              <span class="logout-icon">→</span> Logout
+            </button>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button id="sidebar-toggle" class="burger-menu" type="button" aria-label="Toggle sidebar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input type="search" placeholder="Search assets, assignments..." />
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <button type="button" class="icon-button" aria-label="Notifications">🔔</button>
+
+            <div class="profile-badge" aria-label="User profile">
+              <span class="avatar" id="user-avatar">ST</span>
+              <div>
+                <strong id="user-name">Staff</strong>
+                <small id="user-role">ITSD Staff</small>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="page-header">
+            <div>
+              <p class="eyebrow">IT Support</p>
+              <h1>Staff Overview</h1>
+            </div>
+            <button type="button" id="open-asset-modal" class="primary-button compact">+ New asset</button>
+          </section>
+
+          <section id="metricsGrid" class="metrics-grid" aria-label="Summary metrics"></section>
+
+          <section class="content-grid">
+            <article class="panel large-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Asset Status</p>
+                  <h2>Inventory Overview</h2>
+                </div>
+                <button type="button" class="link-button">View all</button>
+              </div>
+              <div id="assetBreakdown" class="status-breakdown"></div>
+            </article>
+
+            <article class="panel small-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Support Tasks</p>
+                  <h2>Quick Actions</h2>
+                </div>
+              </div>
+              <div id="quickActions" class="quick-actions"></div>
+            </article>
+
+            <article class="panel wide-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Support Alerts</p>
+                  <h2>Attention Required</h2>
+                </div>
+              </div>
+              <ul id="alertList" class="alert-list"></ul>
+            </article>
+
+            <article class="panel wide-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Support Activity</p>
+                  <h2>Recent Updates</h2>
+                </div>
+              </div>
+              <ul id="activityList" class="activity-list"></ul>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="asset-modal" class="asset-modal hidden" aria-hidden="true">
+      <div class="asset-modal-backdrop" data-close-asset-modal></div>
+
+      <div class="asset-modal-panel" role="dialog" aria-modal="true" aria-labelledby="asset-modal-title">
+        <div class="asset-modal-header">
+          <div>
+            <p class="panel-label">Inventory</p>
+            <h2 id="asset-modal-title">Add New Asset</h2>
+          </div>
+          <button type="button" class="asset-modal-close" id="close-asset-modal" aria-label="Close form">×</button>
+        </div>
+
+        <form id="asset-form" class="asset-form" novalidate>
+          <section class="asset-form-section" data-section="basic">
+            <h3>Basic Information</h3>
+            <div class="asset-form-grid two-columns">
+              <label class="field-group">
+                <span>Device Name</span>
+                <input type="text" name="deviceName" id="device-name" required />
+              </label>
+              <label class="field-group">
+                <span>School</span>
+                <input type="text" name="school" id="school" value="PHINMA Education" />
+              </label>
+              <label class="field-group">
+                <span>Hardware Type</span>
+                <select name="hardwareType" id="hardware-type" required>
+                  <option value="Laptop">Laptop</option>
+                  <option value="Desktop">Desktop</option>
+                  <option value="Network Device">Network Device</option>
+                  <option value="Server">Server</option>
+                  <option value="Printer">Printer</option>
+                  <option value="Other IT Equipment">Other IT Equipment</option>
+                </select>
+              </label>
+              <label class="field-group">
+                <span>Status</span>
+                <select name="status" id="status" required>
+                  <option value="Available">Available</option>
+                  <option value="Active">Active</option>
+                  <option value="Assigned">Assigned</option>
+                  <option value="Borrowed">Borrowed</option>
+                  <option value="Under Maintenance">Under Maintenance</option>
+                  <option value="Under Repair">Under Repair</option>
+                  <option value="Missing">Missing</option>
+                  <option value="Retired">Retired</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section" data-section="accountability">
+            <h3>Accountability</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Asset Accountable</span>
+                <input type="text" name="assetAccountable" id="asset-accountable" />
+              </label>
+              <label class="field-group">
+                <span>Assigned To</span>
+                <input type="text" name="assignedTo" id="assigned-to" />
+              </label>
+              <label class="field-group">
+                <span>Assigned To Email Address</span>
+                <input type="email" name="assignedToEmail" id="assigned-to-email" placeholder="name@school.edu" />
+              </label>
+            </div>
+          </section>
+
+          <section class="asset-form-section" data-section="location">
+            <h3>Location</h3>
+            <div class="asset-form-grid three-columns">
+              <label class="field-group">
+                <span>Building Name</span>
+                <input type="text" name="buildingName" id="building-name" />
+              </label>
+              <label class="field-group">
+                <span>Floor Number</span>
+                <input type="text" name="floorNumber" id="floor-number" />
+              </label>
+              <label class="field-group">
+                <span>Office / Room Number</span>
+                <input type="text" name="officeNumber" id="office-number" />
+              </label>
+              <label class="field-group">
+                <span>Position</span>
+                <input type="text" name="position" id="position" placeholder="N/A" />
+              </label>
+              <label class="field-group">
+                <span>Department</span>
+                <input type="text" name="department" id="department" placeholder="N/A" />
+              </label>
+            </div>
+          </section>
+
+          <div class="asset-form-actions">
+            <button type="button" class="secondary-button asset-cancel" data-close-asset-modal>Cancel</button>
+            <button type="submit" class="primary-button">Add Asset</button>
+          </div>
+
+          <div id="asset-success" class="asset-success hidden" aria-live="polite">
+            <h3>Asset created successfully</h3>
+            <p id="asset-success-message">Asset Record: <strong id="created-asset-id">ITAMS-000000</strong></p>
+            <div class="asset-success-actions">
+              <a id="view-asset-link" class="primary-button small-button" href="#">View Asset</a>
+              <button type="button" class="secondary-button small-button" id="view-qr-button">View QR Code</button>
+              <button type="button" class="secondary-button small-button" id="print-label-button">Print QR Label</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="../../js/config/supabase.js"></script>
+    <script src="../../js/config/supabase-test.js"></script>
+    <script src="../../js/assets/add-asset.js"></script>
+    <script src="../../js/dashboard/dashboard.js"></script>
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/auth/logout.js"></script>
+    <script src="../../js/auth/role-utils.js"></script>
+    <script src="../../js/auth/user-profile.js"></script>
+    <script>
+      // Role guard for staff dashboard
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          const { data: { user } } = await window.supabaseClient.auth.getUser();
+          
+          if (!user) {
+            window.location.href = '../../login.html';
+            return;
+          }
+
+          const userRole = user.user_metadata?.role || user.user_metadata?.user_role;
+          
+          if (!userRole || userRole.toLowerCase() !== 'staff') {
+            // Redirect to appropriate dashboard
+            const roleMap = {
+              'administrator': '../administrator/dashboard.html',
+              'specialist': '../specialist/dashboard.html'
+            };
+            
+            const targetDashboard = roleMap[userRole?.toLowerCase()] || '../dashboard.html';
+            window.location.href = targetDashboard;
+          }
+        } catch (error) {
+          console.error('Role guard error:', error);
+          window.location.href = '../../login.html';
+        }
+      });
+    </script>
+  </body>
+</html>

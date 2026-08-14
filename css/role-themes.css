@@ -1,0 +1,127 @@
+/* css/role-themes.css - Role-specific themes for ITAMS */
+
+/* Base theme variables */
+:root {
+  --itams-crimson: #9E0A0E;
+  --itams-pink: #FFD1CE;
+  --itams-black: #0F0101;
+  --itams-white: #FFFFFF;
+  --itams-light-bg: #F9F3F7;
+}
+
+/* Administrator Theme - Authoritative, Management */
+.administrator-theme {
+  --role-accent: #1a365d; /* Deep authoritative blue */
+  --role-accent-light: #ebf8ff;
+  --role-sidebar-bg: #1a365d;
+  --role-sidebar-text: #FFFFFF;
+  --role-active-bg: #FFD1CE;
+  --role-active-text: #1a365d;
+}
+
+.administrator-theme .sidebar {
+  background: var(--role-sidebar-bg);
+}
+
+.administrator-theme .nav-item.active {
+  background: var(--role-active-bg);
+  color: var(--role-active-text);
+}
+
+.administrator-theme .eyebrow {
+  color: var(--role-accent);
+}
+
+.administrator-theme .primary-button {
+  background: var(--role-accent);
+}
+
+.administrator-theme .primary-button:hover,
+.administrator-theme .primary-button:focus-visible {
+  background: #2c5282;
+}
+
+.administrator-theme .panel-label {
+  color: var(--role-accent);
+}
+
+/* Specialist Theme - Technical, Operational */
+.specialist-theme {
+  --role-accent: #2F855A; /* Technical green */
+  --role-accent-light: #f0fff4;
+  --role-sidebar-bg: #2F855A;
+  --role-sidebar-text: #FFFFFF;
+  --role-active-bg: #FFD1CE;
+  --role-active-text: #2F855A;
+}
+
+.specialist-theme .sidebar {
+  background: var(--role-sidebar-bg);
+}
+
+.specialist-theme .nav-item.active {
+  background: var(--role-active-bg);
+  color: var(--role-active-text);
+}
+
+.specialist-theme .eyebrow {
+  color: var(--role-accent);
+}
+
+.specialist-theme .primary-button {
+  background: var(--role-accent);
+}
+
+.specialist-theme .primary-button:hover,
+.specialist-theme .primary-button:focus-visible {
+  background: #276749;
+}
+
+.specialist-theme .panel-label {
+  color: var(--role-accent);
+}
+
+/* Staff Theme - Support, Approachable */
+.staff-theme {
+  --role-accent: #DD6B20; /* Warm orange */
+  --role-accent-light: #fffaf0;
+  --role-sidebar-bg: #DD6B20;
+  --role-sidebar-text: #FFFFFF;
+  --role-active-bg: #FFD1CE;
+  --role-active-text: #DD6B20;
+}
+
+.staff-theme .sidebar {
+  background: var(--role-sidebar-bg);
+}
+
+.staff-theme .nav-item.active {
+  background: var(--role-active-bg);
+  color: var(--role-active-text);
+}
+
+.staff-theme .eyebrow {
+  color: var(--role-accent);
+}
+
+.staff-theme .primary-button {
+  background: var(--role-accent);
+}
+
+.staff-theme .primary-button:hover,
+.staff-theme .primary-button:focus-visible {
+  background: #c05621;
+}
+
+.staff-theme .panel-label {
+  color: var(--role-accent);
+}
+
+/* Responsive adjustments for role themes */
+@media (max-width: 1024px) {
+  .administrator-theme .sidebar,
+  .specialist-theme .sidebar,
+  .staff-theme .sidebar {
+    background: var(--role-sidebar-bg);
+  }
+}
